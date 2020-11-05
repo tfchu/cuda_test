@@ -17,7 +17,7 @@ int main(void)
 
     // print d_vec, size = d_vec.size()
     for(int i = 0; i < 50; i++)
-        std::cout << "h_dev[" << i << "] = " << h_vec[i] << std.endl;
+        std::cout << "h_dev[" << i << "] = " << h_vec[i] << std::endl;
 
     // transfer data to the device
     thrust::device_vector<int> d_vec = h_vec;
@@ -30,7 +30,7 @@ int main(void)
 
     // print d_vec, size = d_vec.size()
     for(int i = 0; i < 50; i++)
-        std::cout << "h_dev[" << i << "] = " << h_vec[i] << std.endl;
+        std::cout << "h_dev[" << i << "] = " << h_vec[i] << std::endl;
 
   return 0;
 }
