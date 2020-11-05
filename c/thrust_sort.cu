@@ -5,6 +5,7 @@
 #include <thrust/copy.h>
 #include <algorithm>
 #include <cstdlib>
+#include <iostream>
 
 int main(void)
 {
