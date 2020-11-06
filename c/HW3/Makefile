@@ -23,12 +23,20 @@ OPENCV_LIBS=-lopencv_core -lopencv_imgproc -lopencv_highgui
 # On Macs the default install locations are below    #
 # ####################################################
 
+# CUDA_INCLUDEPATH=/usr/local/cuda/include
+# CUDA_LIBPATH=/usr/local/cuda/lib
+
+# NVCC_OPTS=-O3 -arch=sm_20 -Xcompiler -Wall -Xcompiler -Wextra -m64
+
+# GCC_OPTS=-O3 -Wall -Wextra -m64
+
+######################################################
+# Jetson nano                                        #
+# ####################################################
 CUDA_INCLUDEPATH=/usr/local/cuda/include
-CUDA_LIBPATH=/usr/local/cuda/lib
-
-NVCC_OPTS=-O3 -arch=sm_20 -Xcompiler -Wall -Xcompiler -Wextra -m64
-
-GCC_OPTS=-O3 -Wall -Wextra -m64
+CUDA_LIBPATH=/usr/local/cuda/lib64
+NVCC_OPTS=-O3 -arch=sm_50 -Xcompiler -Wall -Xcompiler -Wextra -m64
+GCC_OPTS=-O3 -Wall -Wextra
 
 student: main.o student_func.o HW3.o loadSaveImage.o compare.o reference_calc.o Makefile
 	$(NVCC) -o HW3 main.o student_func.o HW3.o loadSaveImage.o compare.o reference_calc.o -L $(OPENCV_LIBPATH) $(OPENCV_LIBS) $(NVCC_OPTS)
