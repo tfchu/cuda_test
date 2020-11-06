@@ -44,6 +44,8 @@ void loadImageHDR(const std::string &filename,
 
   *numRows = image.rows;
   *numCols = image.cols;
+
+  cout << "row " << image.rows << " col " << image.cols << endl;
 }
 
 void loadImageRGBA(const std::string &filename,
