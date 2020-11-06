@@ -159,8 +159,6 @@ void your_histogram_and_prefixsum(const float* const d_logLuminance,
   cout << "TestArray cells: " << numCells << endl;
 
   // copy array
-
-
   checkCudaErrors(cudaMemcpy(d_minWorking, testArray, 
     sizeof(testArray), cudaMemcpyHostToDevice));
 
