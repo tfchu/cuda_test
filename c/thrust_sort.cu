@@ -9,6 +9,9 @@
 
 int main(void)
 {
+    // context init ok
+    checkCudaErrors(cudaFree(0));
+    
     // generate 32M random numbers serially (2^20 = 1M)
     // thrust::host_vector<int> h_vec(32 << 20);
     // generate 1M random numbers serially (2^20 = 1M)
