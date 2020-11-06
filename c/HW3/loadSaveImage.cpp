@@ -1,9 +1,13 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/opencv.hpp>
+// #include <opencv2/opencv.hpp>
 #include <opencv2/imgcodecs.hpp>   // added
+#include <opencv2/imgproc/imgproc.hpp>  // added
 #include <vector>
 #include "cuda_runtime.h"
+
+using namespace std;  // added
+using namespace cv;   // added
 
 //The caller becomes responsible for the returned pointer. This
 //is done in the interest of keeping this code as simple as possible.
