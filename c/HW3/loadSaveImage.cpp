@@ -21,7 +21,7 @@ void loadImageHDR(const std::string &filename,
 {
   cout << "loadImageHDR\n";
   cv::Mat image = cv::imread(filename.c_str(), cv::IMREAD_COLOR | cv::IMREAD_ANYDEPTH); // CV_LOAD_IMAGE_COLOR, CV_LOAD_IMAGE_ANYDEPTH
-  cout << typeid(image).name() << endl;
+  cout << "channel " << image.channels() << " row " << image.rows << " col " << image.cols << endl;
 
   if (image.empty()) {
     std::cerr << "Couldn't open file: " << filename << std::endl;
@@ -47,7 +47,6 @@ void loadImageHDR(const std::string &filename,
   *numRows = image.rows;
   *numCols = image.cols;
 
-  cout << "row " << image.rows << " col " << image.cols << endl;
 }
 
 void loadImageRGBA(const std::string &filename,
