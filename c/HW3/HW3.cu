@@ -243,7 +243,8 @@ void postProcess(const std::string& output_file,
 
   float log_Y_range = max_log_Y - min_log_Y;
 
-  const dim3 blockSize(32, 16, 1);
+  // const dim3 blockSize(32, 16, 1);
+  const dim3 blockSize(8, 8, 1);
   const dim3 gridSize( (numCols + blockSize.x - 1) / blockSize.x,
                        (numRows + blockSize.y - 1) / blockSize.y );
   //next perform the actual tone-mapping
