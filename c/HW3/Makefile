@@ -38,7 +38,7 @@ OPENCV_INCLUDEPATH=/usr/include/opencv4
 OPENCV_LIBS=-lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_imgcodecs	# link required libs (otherwise "undefined reference")
 CUDA_INCLUDEPATH=/usr/local/cuda/include
 CUDA_LIBPATH=/usr/local/cuda/lib64
-NVCC_OPTS=-O3 -arch=sm_50 -Xcompiler -Wall -Xcompiler -Wextra -m64 -G -g
+NVCC_OPTS=-O3 -arch=sm_53 -Xcompiler -Wall -Xcompiler -Wextra -m64 -G -g
 GCC_OPTS=-O3 -Wall -Wextra -g
 
 student: main.o student_func.o HW3.o loadSaveImage.o compare.o reference_calc.o Makefile
