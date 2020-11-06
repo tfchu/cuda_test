@@ -222,7 +222,8 @@ void postProcess(const std::string& output_file,
                                   d_cdf_normalized,
                                   numBins);
 
-  cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+  cudaDeviceSynchronize(); 
+  //checkCudaErrors(cudaGetLastError());
 
   //allocate memory for the output RGB channels
   float *h_red, *h_green, *h_blue;
