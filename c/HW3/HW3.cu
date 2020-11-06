@@ -184,7 +184,8 @@ void preProcess(float** d_luminance, unsigned int** d_cdf,
                                       d_x__, d_y__,   d_logY__,
                                       .0001f, numRows__, numCols__);
 
-  cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+  cudaDeviceSynchronize(); 
+  // checkCudaErrors(cudaGetLastError());
 
   *d_luminance = d_logY__;
 
@@ -252,7 +253,8 @@ void postProcess(const std::string& output_file,
                                    log_Y_range, numBins,
                                    numRows, numCols);
 
-  cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+  cudaDeviceSynchronize(); 
+  //checkCudaErrors(cudaGetLastError());
 
   checkCudaErrors(cudaMemcpy(h_red,   d_red,   sizeof(float) * numPixels, cudaMemcpyDeviceToHost));
   checkCudaErrors(cudaMemcpy(h_green, d_green, sizeof(float) * numPixels, cudaMemcpyDeviceToHost));
