@@ -85,7 +85,7 @@ void saveImageRGBA(const uchar4* const image,
   sizes[1] = numCols;
   cv::Mat imageRGBA(2, sizes, CV_8UC4, (void *)image);
   cv::Mat imageOutputBGR;
-  cv::cvtColor(imageRGBA, imageOutputBGR, CV_RGBA2BGR);
+  cv::cvtColor(imageRGBA, imageOutputBGR, cv::COLOR_RGBA2BGR);
   //output the image
   cv::imwrite(output_file.c_str(), imageOutputBGR);
 }
