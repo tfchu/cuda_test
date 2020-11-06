@@ -1,7 +1,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
-#include <opencv2/imcodecs.hpp>
+#include <opencv2/imgcodecs.hpp>   // added
 #include <vector>
 #include "cuda_runtime.h"
 
