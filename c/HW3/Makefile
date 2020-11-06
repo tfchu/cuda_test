@@ -34,7 +34,7 @@ NVCC=nvcc
 # Jetson nano                                        #
 # ####################################################
 OPENCV_LIBPATH=/usr/lib
-OPENCV_INCLUDEPATH=/usr/include/opencv4/opencv2
+OPENCV_INCLUDEPATH=/usr/include/opencv4
 OPENCV_LIBS=-lopencv_core -lopencv_imgproc -lopencv_highgui
 CUDA_INCLUDEPATH=/usr/local/cuda/include
 CUDA_LIBPATH=/usr/local/cuda/lib64
