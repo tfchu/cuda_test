@@ -42,7 +42,10 @@ void loadImageHDR(const std::string &filename,
 
   float *cvPtr = image.ptr<float>(0);
   for (size_t i = 0; i < image.rows * image.cols * image.channels(); ++i)
+  {
+	  cout << "cvPtr[" << i << "] " << cvPtr[i] << endl;
     (*imagePtr)[i] = cvPtr[i];
+  }
 
   *numRows = image.rows;
   *numCols = image.cols;
