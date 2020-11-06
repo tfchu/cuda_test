@@ -138,6 +138,8 @@ void preProcess(float** d_luminance, unsigned int** d_cdf,
                 size_t *numRows, size_t *numCols,
                 unsigned int *numberOfBins,
                 const std::string &filename) {
+  std::cout << "preProcess\n";
+
   //make sure the context initializes ok
   checkCudaErrors(cudaFree(0));
 

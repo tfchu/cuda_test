@@ -138,7 +138,6 @@ void your_histogram_and_prefixsum(const float* const d_logLuminance,
        incoming d_cdf pointer which already has been allocated for you)       */
 
 
-
   int i = 0;
 
   cout << "HELP ME\n";
