@@ -12,10 +12,10 @@ NVCC=nvcc
 # On Macs the default install locations are below #
 ###################################################
 
-OPENCV_LIBPATH=/usr/local/lib
-OPENCV_INCLUDEPATH=/usr/local/include
+# OPENCV_LIBPATH=/usr/local/lib
+# OPENCV_INCLUDEPATH=/usr/local/include
 
-OPENCV_LIBS=-lopencv_core -lopencv_imgproc -lopencv_highgui
+# OPENCV_LIBS=-lopencv_core -lopencv_imgproc -lopencv_highgui
 
 #CUDA_INCLUDEPATH=/usr/local/cuda-5.0/include
 
@@ -33,6 +33,9 @@ OPENCV_LIBS=-lopencv_core -lopencv_imgproc -lopencv_highgui
 ######################################################
 # Jetson nano                                        #
 # ####################################################
+OPENCV_LIBPATH=/usr/lib
+OPENCV_INCLUDEPATH=/usr/include/opencv4/opencv2
+OPENCV_LIBS=-lopencv_core -lopencv_imgproc -lopencv_highgui
 CUDA_INCLUDEPATH=/usr/local/cuda/include
 CUDA_LIBPATH=/usr/local/cuda/lib64
 NVCC_OPTS=-O3 -arch=sm_50 -Xcompiler -Wall -Xcompiler -Wextra -m64
