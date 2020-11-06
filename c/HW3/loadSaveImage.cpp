@@ -21,6 +21,8 @@ void loadImageHDR(const std::string &filename,
 {
   cout << "loadImageHDR\n";
   cv::Mat image = cv::imread(filename.c_str(), cv::IMREAD_COLOR | cv::IMREAD_ANYDEPTH); // CV_LOAD_IMAGE_COLOR, CV_LOAD_IMAGE_ANYDEPTH
+  cout << typeid(image).name() << endl;
+
   if (image.empty()) {
     std::cerr << "Couldn't open file: " << filename << std::endl;
     exit(1);
