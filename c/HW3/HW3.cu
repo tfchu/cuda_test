@@ -20,7 +20,8 @@ size_t numCols__;
  * Mainly double precision constants to floats and log10 -> log10f
  * Also removed Luminance (Y) channel since it is never used       eke*/
 
-__global__ void rgb_to_xyY(
+__global__ 
+void rgb_to_xyY(
     float* d_r,
     float* d_g,
     float* d_b,
@@ -185,7 +186,7 @@ void preProcess(float** d_luminance, unsigned int** d_cdf,
                                       .0001f, numRows__, numCols__);
 
   cudaDeviceSynchronize(); 
-  // checkCudaErrors(cudaGetLastError());
+  checkCudaErrors(cudaGetLastError());
 
   *d_luminance = d_logY__;
 
@@ -224,7 +225,7 @@ void postProcess(const std::string& output_file,
                                   numBins);
 
   cudaDeviceSynchronize(); 
-  //checkCudaErrors(cudaGetLastError());
+  checkCudaErrors(cudaGetLastError());
 
   //allocate memory for the output RGB channels
   float *h_red, *h_green, *h_blue;
@@ -254,7 +255,7 @@ void postProcess(const std::string& output_file,
                                    numRows, numCols);
 
   cudaDeviceSynchronize(); 
-  //checkCudaErrors(cudaGetLastError());
+  checkCudaErrors(cudaGetLastError());
 
   checkCudaErrors(cudaMemcpy(h_red,   d_red,   sizeof(float) * numPixels, cudaMemcpyDeviceToHost));
   checkCudaErrors(cudaMemcpy(h_green, d_green, sizeof(float) * numPixels, cudaMemcpyDeviceToHost));
