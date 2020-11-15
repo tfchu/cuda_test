@@ -1,4 +1,4 @@
-CUDA_LIBS=-L/usr/local/cuda/lib64 -lcudadevrt  -L/usr/lib/aarch64-linux-gnu/ -lcublas_device
+CUDA_LIBS=-L/usr/local/cuda/lib64 -lcudadevrt  -L/usr/lib/aarch64-linux-gnu/ -lcublas
 #CUDA_LIB=-L/usr/local/cuda/lib64 -lcudadevrt  -L/usr/lib/x86_64-linux-gnu/ -lcublas_device
 CUDA_PATH ?= "/usr/local/cuda"
 NVCC := $(CUDA_PATH)/bin/nvcc
