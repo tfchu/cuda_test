@@ -1,4 +1,13 @@
-// $ nvcc -o matrix_dot_product matrix_dot_product.cu
+/* 
+# compile 
+$ nvcc -o matrix_dot_product matrix_dot_product.cu
+
+# numpy counterpart
+import numpy as np
+m1 = np.array(((0, 1, 2), (3, 4, 5), (6, 7, 8)))
+m2 = np.array(((3, 4), (5, 6), (7, 8)))
+m1.dot(m2)
+*/
 
 #include <stdio.h>
 #include <cuda.h>
