@@ -22,13 +22,13 @@ void getCudaDeviceInfo()
                prop.memoryBusWidth);
         printf("  Peak Memory Bandwidth (GB/s): %f\n",
                2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
-        printf("Compute capability: %d.%d\n", prop.major, prop.minor);
-        printf("Multi-processor count: %d\n", prop.multiProcessorCount);
-        printf("Maximum size of each dimension of a grid: %d\n", *(prop.maxGridSize));
-        printf("Maximum size of each dimension of a block: %d\n", *(prop.maxThreadsDim));
-        printf("Maximum number of threads per block: %d\n", prop.maxThreadsPerBlock);
+        printf("  Compute capability: %d.%d\n", prop.major, prop.minor);
+        printf("  Multi-processor count: %d\n", prop.multiProcessorCount);
+        printf("  Maximum size of each dimension of a grid: %d\n", *(prop.maxGridSize));
+        printf("  Maximum size of each dimension of a block: %d\n", *(prop.maxThreadsDim));
+        printf("  Maximum number of threads per block: %d\n", prop.maxThreadsPerBlock);
         //printf("Maximum number of resident blocks per multiprocessor: %d\n", prop.maxBlocksPerMultiProcessor);
-        printf("Maximum resident threads per multiprocessor: %d\n", prop.maxThreadsPerMultiProcessor); 
+        printf("  Maximum resident threads per multiprocessor: %d\n", prop.maxThreadsPerMultiProcessor); 
       }
 }
 
