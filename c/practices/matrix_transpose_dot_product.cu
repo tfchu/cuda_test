@@ -113,7 +113,7 @@ int main(void)
     cudaMemcpy(d_m2, h_m2, M_BYTES, cudaMemcpyHostToDevice);
 
     // m1_transpose dot m2
-    dDot_m1T_m2(d_m1, d_m2, 3, 3, 3);
+    dDot_m1T_m2(d_m1, d_m2, d_out, 3, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
     printf("m1 transpose dot m2");
@@ -123,7 +123,7 @@ int main(void)
     }
 
     // m1 dot m2_transpose
-    dDot_m1_m2T(d_m1, d_m2, 3, 3, 3);
+    dDot_m1_m2T(d_m1, d_m2, d_out, 3, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
     printf("elementwise multiplication");
