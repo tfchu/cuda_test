@@ -1,3 +1,6 @@
+/*
+$ nvcc -o device_prop device_prop.cu
+*/
 #include <stdio.h>
 #include <cuda.h>
 #include <cuda_runtime.h>
@@ -24,7 +27,7 @@ void getCudaDeviceInfo()
         printf("Maximum size of each dimension of a grid: %d\n", prop.maxGridSize);
         printf("Maximum size of each dimension of a block: %d\n", prop.maxThreadsDim);
         printf("Maximum number of threads per block: %d\n", prop.maxThreadsPerBlock);
-        printf("Maximum number of resident blocks per multiprocessor: %d\n", prop.maxBlocksPerMultiProcessor);
+        //printf("Maximum number of resident blocks per multiprocessor: %d\n", prop.maxBlocksPerMultiProcessor);
         printf("Maximum resident threads per multiprocessor: %d\n", prop.maxThreadsPerMultiProcessor); 
       }
 }
