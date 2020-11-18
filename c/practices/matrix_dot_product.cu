@@ -70,6 +70,7 @@ int main(void)
     cudaMalloc((void**) &d_m2, M2_BYTES);
     cudaMalloc((void**) &d_out, PRODUCT_BYTES);
     cudaMemcpy(d_m1, h_m1, M1_BYTES, cudaMemcpyHostToDevice);
+    cudaMemcpy(d_m2, h_m2, M2_BYTES, cudaMemcpyHostToDevice);
     dDot(d_m1, d_m2, d_out, 3, 3, 2);
     cudaMemcpy(h_out, d_out, PRODUCT_BYTES, cudaMemcpyDeviceToHost);
 
