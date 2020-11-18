@@ -79,7 +79,7 @@ int main(void)
         h_m2[i] = float(M_SIZE - 1 - i);
     }
 
-    // GPU
+    // GPU memory allocation and initialization
     float *d_m1, *d_m2, *d_out;
     cudaMalloc((void**) &d_m1, M_BYTES);
     cudaMalloc((void**) &d_m2, M_BYTES);
@@ -91,14 +91,17 @@ int main(void)
     dMatrixSubstractMatrix(d_m1, d_m2, d_out, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
+    printf("elementwise subtraction");
     for (int i = 0; i < M_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
     }
+
     // elementwise multiplication
     dMatrixByMatrixElementwise(d_m1, d_m2, d_out, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
+    printf("elementwise multiplication");
     for (int i = 0; i < M_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
