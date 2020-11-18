@@ -5,7 +5,7 @@ $ nvcc -o sigmoid sigmoid.cu
 # numpy counterpart
 import numpy as np
 m = np.array(((0, 1, 2), (3, 4, 5), (6, 7, 8), (9, 10, 11)))
-s = 1/(1+np.exp(m))
+s = 1/(1+np.exp(-m))
 sd = s*(1-s)
 */
 
@@ -88,7 +88,7 @@ int main(void)
     cudaMemcpy(h_out, d_out, M1_BYTES, cudaMemcpyDeviceToHost);
     // print result
     printf("sigmoid\n");
-    for (int i = 0; i < M1_BYTES; i++)
+    for (int i = 0; i < M1_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
     }
@@ -99,7 +99,7 @@ int main(void)
     cudaMemcpy(h_out, d_out, M1_BYTES, cudaMemcpyDeviceToHost);
     // print result
     printf("sigmoid derivative\n");
-    for (int i = 0; i < M1_BYTES; i++)
+    for (int i = 0; i < M1_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
     }
