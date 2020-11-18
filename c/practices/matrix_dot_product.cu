@@ -39,7 +39,7 @@ void kDot(const int nThreads, const float *m1, const float *m2, float *output, c
 // product of two matrices: m1 x m2
 // output is m1_rows x m2_columns
 // __device__ 
-float* dDot(const float *m1, const float *m2, float *output, const int m1_rows , const int m1_columns, const int m2_columns ){
+void dDot(const float *m1, const float *m2, float *output, const int m1_rows , const int m1_columns, const int m2_columns ){
 
 	kDot <<< m1_rows, m2_columns >>> (m1_rows * m2_columns, m1, m2, output, m1_rows , m1_columns, m2_columns );
 	cudaDeviceSynchronize();
@@ -83,8 +83,8 @@ int main(void)
     cudaFree(d_m1);
     cudaFree(d_m2);
     cudaFree(d_out);
-    free(h_m1);
-    free(h_m2);
-    free(h_out);
+    // free(h_m1);
+    // free(h_m2);
+    // free(h_out);
 
 }
