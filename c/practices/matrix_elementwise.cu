@@ -89,7 +89,7 @@ void getCudaDeviceInfo()
 int main(void)
 {
     // GPU info
-    getCudaDeviceInfo()
+    getCudaDeviceInfo();
 
     // host initialization
     const int M_SIZE = 9;          // 3x3 matrix
