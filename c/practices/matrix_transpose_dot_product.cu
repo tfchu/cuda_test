@@ -47,7 +47,6 @@ void kDot_m1_m2T(const int nThreads, const float *m1, const float *m2, float *ou
 	}
 }
 
-__device__ 
 float* dDot_m1_m2T(const float *m1, const float *m2, float *output, const int m1_rows , const int m1_columns, const int m2_rows )
 {
 	kDot_m1_m2T <<< m1_rows, m2_rows >>> ( m1_rows * m2_rows, m1, m2, output, m1_columns, m2_rows );
@@ -87,7 +86,6 @@ void kDot_m1T_m2(const int nThreads, const float *m1, const float *m2, float *ou
 	}
 }
 
-__device__ 
 void dDot_m1T_m2(const float *m1, const float *m2, float *output, const int m1_height , const int m1_width, const int m2_width )
 {
 	kDot_m1T_m2 <<< m1_width, m2_width >>> (m1_width * m2_width, m1, m2, output, m1_height, m1_width, m2_width );
