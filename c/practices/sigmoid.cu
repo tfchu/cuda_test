@@ -87,7 +87,7 @@ int main(void)
     dSigmoid(d_m1, d_out, 4, 3);
     cudaMemcpy(h_out, d_out, M1_BYTES, cudaMemcpyDeviceToHost);
     // print result
-    prinf("sigmoid\n");
+    printf("sigmoid\n");
     for (int i = 0; i < M1_BYTES; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
@@ -98,7 +98,7 @@ int main(void)
     dSigmoid_d(d_m1, d_out, 4, 3);
     cudaMemcpy(h_out, d_out, M1_BYTES, cudaMemcpyDeviceToHost);
     // print result
-    prinf("sigmoid derivative\n");
+    printf("sigmoid derivative\n");
     for (int i = 0; i < M1_BYTES; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
