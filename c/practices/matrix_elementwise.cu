@@ -1,4 +1,7 @@
 /*
+compile 
+$ nvcc -o matrix_elementwise matrix_elementwise.cu
+
 elementwise multiplication and subtraction
 
 numpy version 
@@ -69,8 +72,8 @@ int main(void)
     // host initialization
     const int M_SIZE = 9;          // 3x3 matrix
     const int M_BYTES = M_SIZE * sizeof(float);
-    float h_m1[M_SIZE], h_m2[M_SIZE], float h_out[M_SIZE];
-    for (int i = 0; i < M1_SIZE; i++) 
+    float h_m1[M_SIZE], h_m2[M_SIZE], h_out[M_SIZE];
+    for (int i = 0; i < M_SIZE; i++) 
     {
         h_m1[i] = float(i); // 0, 1, .. 8
         h_m2[i] = float(M_SIZE - 1 - i);
