@@ -113,7 +113,7 @@ int main(void)
     dMatrixSubstractMatrix(d_m1, d_m2, d_out, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
-    printf("elementwise subtraction");
+    printf("elementwise subtraction\n");
     for (int i = 0; i < M_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
@@ -123,7 +123,7 @@ int main(void)
     dMatrixByMatrixElementwise(d_m1, d_m2, d_out, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
-    printf("elementwise multiplication");
+    printf("elementwise multiplication\n");
     for (int i = 0; i < M_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);

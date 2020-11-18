@@ -92,8 +92,30 @@ void dDot_m1T_m2(const float *m1, const float *m2, float *output, const int m1_h
 	cudaDeviceSynchronize();
 }
 
+void getCudaDeviceInfo()
+{
+    int nDevices;
+    cudaGetDeviceCount(&nDevices);
+
+    for (int i = 0; i < nDevices; i++) {
+        cudaDeviceProp prop;
+        cudaGetDeviceProperties(&prop, i);
+        printf("Device Number: %d\n", i);
+        printf("  Device name: %s\n", prop.name);
+        printf("  Memory Clock Rate (KHz): %d\n",
+               prop.memoryClockRate);
+        printf("  Memory Bus Width (bits): %d\n",
+               prop.memoryBusWidth);
+        printf("  Peak Memory Bandwidth (GB/s): %f\n\n",
+               2.0*prop.memoryClockRate*(prop.memoryBusWidth/8)/1.0e6);
+      }
+}
+
 int main(void)
 {
+    // GPU info
+    getCudaDeviceInfo()
+
     // host initialization
     const int M_SIZE = 9;          // 3x3 matrix
     const int M_BYTES = M_SIZE * sizeof(float);
@@ -116,7 +138,7 @@ int main(void)
     dDot_m1T_m2(d_m1, d_m2, d_out, 3, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
-    printf("m1 transpose dot m2");
+    printf("m1_transpose dot m2\n");
     for (int i = 0; i < M_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
@@ -126,7 +148,7 @@ int main(void)
     dDot_m1_m2T(d_m1, d_m2, d_out, 3, 3, 3);
     cudaMemcpy(h_out, d_out, M_BYTES, cudaMemcpyDeviceToHost);
     // print result
-    printf("elementwise multiplication");
+    printf("m1 dot m2_transpose\n");
     for (int i = 0; i < M_SIZE; i++)
     {
         printf("h_out[%d] = %f\n", i, h_out[i]);
