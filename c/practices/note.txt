@@ -1,0 +1,4 @@
+error message if calling __device__ from host code: 
+matrix_transpose_dot_product.cu(53): error: calling a __global__ function("kDot_m1_m2T") from a __device__ function("dDot_m1_m2T") is only allowed on the compute_35 architecture or above
+
+matrix_transpose_dot_product.cu(93): error: calling a __global__ function("kDot_m1T_m2") from a __device__ function("dDot_m1T_m2") is only allowed on the compute_35 architecture or above
