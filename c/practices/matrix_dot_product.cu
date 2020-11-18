@@ -1,3 +1,5 @@
+// $ nvcc -o matrix_dot_product matrix_dot_product.cu
+
 #include <stdio.h>
 #include <cuda.h>
 #include <cuda_runtime.h>
