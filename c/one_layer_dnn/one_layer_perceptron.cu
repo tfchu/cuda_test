@@ -298,18 +298,19 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		// activate(input * weight) for input > layer 1 and for layer 1 > output
 		/*
 		line 1: 
-			l1 = (X dot W0) = in_h1 (h1: hidden layer 1 )
-			l1 = sigmoid(l1) = out_h1 (1 x 8)
+			l1 (4x8) = (X (4x4) dot W0 (4x8)) = in_h1 (4x8) (h1: hidden layer 1 )
+			l1 = sigmoid(l1) = out_h1 (4 x 8)
 		line 2: 
-			pred (1x1) = (l1 (1x8) dot W1 (8x1)) = IN_output\
-			pred = sigmoid(pred) = output
+			pred (4x1) = (l1 (4x8) dot W1 (8x1)) = IN_output
+			pred (4x1) = sigmoid(pred (4x1)) = output
 		*/
         dSigmoid(dDot(X, W0, l1, X_h, X_w, l1_w), l1, X_h, l1_w);		
 		dSigmoid(dDot(l1, W1, pred, X_h, l1_w, y_w), pred, X_h, y_w);
+		printf("loop: %d\n", i+1);
 		printf("l1\n");
-		kPrintMatrix(l1, 1, 8);
+		kPrintMatrix(l1, 4, 8);
 		printf("pred\n");
-		kPrintMatrix(pred, 1, 1);
+		kPrintMatrix(pred, 4, 1);
 
 		// backpropagate errors
 		/* 
@@ -334,7 +335,6 @@ void kFit(	const float* X, const int X_w, const int X_h,
         dDot_m1T_m2( l1, pred_d, W1, X_h, l1_w, y_w );
 		dDot_m1T_m2( X, l_1_d, W0, X_h, X_w, l1_w );
 		// print
-		printf("loop: %d\n", i+1);
 		printf("W1\n");
 		kPrintMatrix(W1, 1, 8);
 		printf("W0\n");
