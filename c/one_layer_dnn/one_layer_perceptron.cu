@@ -291,7 +291,7 @@ void kFit(	const float* X, const int X_w, const int X_h,
 	printf("W0\n");
 	kPrintMatrix(W0, 8, 4);
 	printf("\n");
-	
+
 	// for 50 iterations
 	for (unsigned i = 0; i < 50; ++i) {
 		// forward propagation
@@ -329,6 +329,7 @@ void kFit(	const float* X, const int X_w, const int X_h,
         dDot_m1T_m2( l1, pred_d, W1, X_h, l1_w, y_w );
 		dDot_m1T_m2( X, l_1_d, W0, X_h, X_w, l1_w );
 		// print
+		printf("loop: %d\n", i+1);
 		printf("W1\n");
 		kPrintMatrix(W1, 1, 8);
 		printf("W0\n");
