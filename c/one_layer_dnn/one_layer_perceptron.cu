@@ -288,10 +288,10 @@ void kFit(	const float* X, const int X_w, const int X_h,
 	// print
 	printf("X\n");
 	kPrintMatrix(X, X_h, X_w);
-	printf("W1\n");
-	kPrintMatrix(W1, 8, 1);
 	printf("W0\n");
 	kPrintMatrix(W0, 4, 8);
+	printf("W1\n");
+	kPrintMatrix(W1, 8, 1);
 	printf("\n");
 
 	// for 50 iterations
@@ -318,7 +318,7 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		dSigmoid(dDot(l1, W1, pred, X_h, l1_w, y_w), pred, X_h, y_w);
 		if (i == 0){
 			printf("loop: %d\n", i+1);
-			printf("l1 (in_h)\n");
+			printf("out_h)\n");
 			kPrintMatrix(l1, 4, 8);
 			printf("pred (y)\n");
 			kPrintMatrix(pred, 4, 1);
@@ -328,26 +328,31 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		/* 
 		line 1: 
 			x or *: elementwise matrix multiplication; dot: matrix dot product
-			pred_d = y - pred (my: y_cap - y)
-			buffer = sigmoid_d(pred) = y * (1 - y)
-			pred_d = pred_d x buffer = (y - y_cap) * y * (1 - y)
+			pred_d (4x1) = y (4x1) - pred (4x1)
+				my: y_cap - y
+			buffer (4x1) = sigmoid_d(pred) (4x1)
+				my: y * (1 - y)
+			pred_d (4x1) = pred_d (4x1) x buffer (4x1)
+				my: (y - y_cap) * y * (1 - y)
 		line 2: 
-			l_1_d = (pred_d dot W1_transpose)
-			buffer = sigmoid_d(l1)
-			l_1_d = l_1_d x buffer
+			l_1_d (4x8) = (pred_d (4x1) dot W1_transpose (1x8))
+			buffer (4x8) = sigmoid_d(l1)
+			l_1_d (4x8) = l_1_d(4x8) x buffer (4x8)
 		*/
         dMatrixByMatrixElementwise(dMatrixSubstractMatrix(y, pred, pred_d, X_h, y_w), dSigmoid_d(pred, buffer, X_h, y_w), pred_d, X_h, y_w );
 		dMatrixByMatrixElementwise(dDot_m1_m2T(pred_d, W1, l_1_d, X_h, y_w, l1_w), dSigmoid_d(l1, buffer, X_h, l1_w), l_1_d, X_h, l1_w);
 
 		// update weights 0 and 1
 		/*
-		line 1: W1 = (l1_transpose dot pred_d)
-		line 2: W0 = (X_transpose dot l_1_d)
+		line 1: W1 (8x1) = l1_transpose (8x4) dot pred_d (4x1)
+		line 2: W0 (4x8) = X_transpose (4x4) dot l_1_d (4x8)
 		*/
         dDot_m1T_m2( l1, pred_d, W1, X_h, l1_w, y_w );
 		dDot_m1T_m2( X, l_1_d, W0, X_h, X_w, l1_w );
 		if (i == 0){
 			// print
+			printf("pred_d\n");
+			kPrintMatrix(pred_d, 4, 1);
 			printf("W1\n");
 			kPrintMatrix(W1, 8, 1);
 			printf("W0\n");
