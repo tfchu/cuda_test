@@ -142,7 +142,7 @@ void kDot(const int nThreads, const float *m1, const float *m2, float *output, c
 		 i < nThreads;
 		 i += blockDim.x * gridDim.x)
 	{
-	    int r = (int)i / m2_columns;
+	    int r = (int)i / m2_columns;		// 
 	    int c = i % m2_columns;
 	    float t_output = 0.f;
 
@@ -155,6 +155,7 @@ void kDot(const int nThreads, const float *m1, const float *m2, float *output, c
 }
 
 // product of two matrices: m1 x m2
+// output is m1_rows x m2_columns
 __device__ 
 float* dDot(const float *m1, const float *m2, float *output, const int m1_rows , const int m1_columns, const int m2_columns ){
 
@@ -258,6 +259,22 @@ void kPrintMatrix (const float* M, int h, int w) {
 }
 
 // whole training process
+// X (d_X): pointer to training data, TRAINING_SIZE x TRAINING_DIM = 4 x 4
+// X_w: training data width, or number of training data (TRAINING_DIM)
+// X_h: training data height, or number of features (TRAINING_SIZE)
+// y: pointer to labels of training data
+// y_w: 1
+// l1: pointer to Layer 1 output?, L1_SIZE x TRAINING_SIZE
+// l1_w: layer 1 width, or L1_SIZE (8)
+// l_1_d: pointer to layer 1 delta
+// pred: pointer to prediction, e.g. pred[0] is prediction of 1st data
+// pred_d: prediction delta
+// W0: weight 0
+// W1: weight 1
+// buffer
+/*
+input X wiht 4 features -> W0 (8x4 matrix) -> hidden layer 1 with 8 neurons -> sigmoid -> W1 (1x8 matrix) -> output
+*/
 __global__ 
 void kFit(	const float* X, const int X_w, const int X_h,
 						const float* y, const int y_w,
@@ -268,29 +285,54 @@ void kFit(	const float* X, const int X_w, const int X_h,
 						float* buffer
 						)
 {
+	// print
+	printf("W1\n");
+	kPrintMatrix(W1, 1, 8);
+	printf("W0\n");
+	kPrintMatrix(W0, 8, 4);
+	printf("\n");
+	
 	// for 50 iterations
 	for (unsigned i = 0; i < 50; ++i) {
 		// forward propagation
 		// activate(input * weight) for input > layer 1 and for layer 1 > output
-        dSigmoid(dDot(X, W0, l1, X_h, X_w, l1_w), l1, X_h, l1_w);
+		/*
+		line 1: 
+			X = input, l1 = (X dot W0) = in_h1 (h1: hidden layer 1 )
+			l1 = sigmoid(l1) = out_h1 (1 x 8)
+		line 2: 
+			pred = (1 dot W1) = IN_output, pred = sigmoid(pred) = output
+		*/
+        dSigmoid(dDot(X, W0, l1, X_h, X_w, l1_w), l1, X_h, l1_w);		
 		dSigmoid(dDot(l1, W1, pred, X_h, l1_w, y_w), pred, X_h, y_w);
+		
 		// backpropagate errors
+		/* 
+		line 1: 
+			x or *: elementwise matrix multiplication; dot: matrix dot product
+			pred_d = y - pred (my: y_cap - y)
+			buffer = sigmoid_d(pred)
+			pred_d = pred_d x buffer = (y - y_cap) * y * (1 - y)
+		line 2: 
+			l_1_d = (pred_d dot W1_transpose)
+			buffer = sigmoid_d(l1)
+			l_1_d = l_1_d x buffer
+		*/
         dMatrixByMatrixElementwise(dMatrixSubstractMatrix(y, pred, pred_d, X_h, y_w), dSigmoid_d(pred, buffer, X_h, y_w), pred_d, X_h, y_w );
 		dMatrixByMatrixElementwise(dDot_m1_m2T(pred_d, W1, l_1_d, X_h, y_w, l1_w), dSigmoid_d(l1, buffer, X_h, l1_w), l_1_d, X_h, l1_w);
+
 		// update weights 0 and 1
+		/*
+		line 1: W1 = (l1_transpose dot pred_d)
+		line 2: W0 = (X_transpose dot l_1_d)
+		*/
         dDot_m1T_m2( l1, pred_d, W1, X_h, l1_w, y_w );
 		dDot_m1T_m2( X, l_1_d, W0, X_h, X_w, l1_w );
-		// W0
-		printf("W0\n");
-		for(int i=0; i<32; i++){
-			printf("%f ", W0[i]);
-		}
-		printf("\n");
-		// W1
+		// print
 		printf("W1\n");
-		for(int i=0; i<8; i++){
-			printf("%f ", W1[i]);
-		}
+		kPrintMatrix(W1, 1, 8);
+		printf("W0\n");
+		kPrintMatrix(W0, 8, 4);
 		printf("\n");
     }
 }
@@ -300,8 +342,8 @@ int main(void){
 	// d_: device (GPU)
 
 	// Define hyperparameters
-	const int TRAINING_SIZE = 4;
-	const int TRAINING_DIM = 4;
+	const int TRAINING_SIZE = 4;	// number of samples
+	const int TRAINING_DIM = 4;		// number of features
 	const int L1_SIZE = 8;
 
 	// X, the first 4 lines from Iris dataset
