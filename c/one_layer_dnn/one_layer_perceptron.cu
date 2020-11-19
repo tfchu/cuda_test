@@ -318,7 +318,7 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		dSigmoid(dDot(l1, W1, pred, X_h, l1_w, y_w), pred, X_h, y_w);
 		if (i == 0){
 			printf("loop: %d\n", i+1);
-			printf("out_h)\n");
+			printf("l1 (out_h)\n");
 			kPrintMatrix(l1, 4, 8);
 			printf("pred (y)\n");
 			kPrintMatrix(pred, 4, 1);
@@ -341,7 +341,14 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		*/
         dMatrixByMatrixElementwise(dMatrixSubstractMatrix(y, pred, pred_d, X_h, y_w), dSigmoid_d(pred, buffer, X_h, y_w), pred_d, X_h, y_w );
 		dMatrixByMatrixElementwise(dDot_m1_m2T(pred_d, W1, l_1_d, X_h, y_w, l1_w), dSigmoid_d(l1, buffer, X_h, l1_w), l_1_d, X_h, l1_w);
-
+		if (i == 0){
+			printf("l1 (out_h)\n");
+			kPrintMatrix(l1, 4, 8);
+			printf("pred_d\n");
+			kPrintMatrix(pred_d, 4, 1);
+			printf("l_1_d\n");
+			kPrintMatrix(l_1_d, 4, 8);
+		}
 		// update weights 0 and 1
 		/*
 		line 1: W1 (8x1) = l1_transpose (8x4) dot pred_d (4x1)
@@ -350,9 +357,6 @@ void kFit(	const float* X, const int X_w, const int X_h,
         dDot_m1T_m2( l1, pred_d, W1, X_h, l1_w, y_w );
 		dDot_m1T_m2( X, l_1_d, W0, X_h, X_w, l1_w );
 		if (i == 0){
-			// print
-			printf("pred_d\n");
-			kPrintMatrix(pred_d, 4, 1);
 			printf("W1\n");
 			kPrintMatrix(W1, 8, 1);
 			printf("W0\n");
