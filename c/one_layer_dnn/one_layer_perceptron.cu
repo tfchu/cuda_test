@@ -308,7 +308,7 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		dSigmoid(dDot(l1, W1, pred, X_h, l1_w, y_w), pred, X_h, y_w);
 		printf("l1\n");
 		kPrintMatrix(l1, 1, 8);
-		printf("pred\n")
+		printf("pred\n");
 		kPrintMatrix(pred, 1, 1);
 
 		// backpropagate errors
