@@ -306,11 +306,14 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		*/
         dSigmoid(dDot(X, W0, l1, X_h, X_w, l1_w), l1, X_h, l1_w);		
 		dSigmoid(dDot(l1, W1, pred, X_h, l1_w, y_w), pred, X_h, y_w);
-		printf("loop: %d\n", i+1);
-		printf("l1\n");
-		kPrintMatrix(l1, 4, 8);
-		printf("pred\n");
-		kPrintMatrix(pred, 4, 1);
+		if (i == 0){
+			printf("loop: %d\n", i+1);
+			printf("l1\n");
+			kPrintMatrix(l1, 4, 8);
+			printf("pred\n");
+			kPrintMatrix(pred, 4, 1);
+		}
+
 
 		// backpropagate errors
 		/* 
@@ -334,12 +337,14 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		*/
         dDot_m1T_m2( l1, pred_d, W1, X_h, l1_w, y_w );
 		dDot_m1T_m2( X, l_1_d, W0, X_h, X_w, l1_w );
-		// print
-		printf("W1\n");
-		kPrintMatrix(W1, 1, 8);
-		printf("W0\n");
-		kPrintMatrix(W0, 8, 4);
-		printf("\n");
+		if (i == 0){
+			// print
+			printf("W1\n");
+			kPrintMatrix(W1, 1, 8);
+			printf("W0\n");
+			kPrintMatrix(W0, 8, 4);
+			printf("\n");
+		}
     }
 }
 
