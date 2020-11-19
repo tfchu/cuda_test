@@ -298,20 +298,25 @@ void kFit(	const float* X, const int X_w, const int X_h,
 		// activate(input * weight) for input > layer 1 and for layer 1 > output
 		/*
 		line 1: 
-			X = input, l1 = (X dot W0) = in_h1 (h1: hidden layer 1 )
+			l1 = (X dot W0) = in_h1 (h1: hidden layer 1 )
 			l1 = sigmoid(l1) = out_h1 (1 x 8)
 		line 2: 
-			pred = (1 dot W1) = IN_output, pred = sigmoid(pred) = output
+			pred (1x1) = (l1 (1x8) dot W1 (8x1)) = IN_output\
+			pred = sigmoid(pred) = output
 		*/
         dSigmoid(dDot(X, W0, l1, X_h, X_w, l1_w), l1, X_h, l1_w);		
 		dSigmoid(dDot(l1, W1, pred, X_h, l1_w, y_w), pred, X_h, y_w);
-		
+		printf("l1\n");
+		kPrintMatrix(l1, 1, 8);
+		printf("pred\n")
+		kPrintMatrix(pred, 1, 1);
+
 		// backpropagate errors
 		/* 
 		line 1: 
 			x or *: elementwise matrix multiplication; dot: matrix dot product
 			pred_d = y - pred (my: y_cap - y)
-			buffer = sigmoid_d(pred)
+			buffer = sigmoid_d(pred) = y * (1 - y)
 			pred_d = pred_d x buffer = (y - y_cap) * y * (1 - y)
 		line 2: 
 			l_1_d = (pred_d dot W1_transpose)
